@@ -12,10 +12,24 @@
 
 # Body
 def most_frequent(s):
-    ...
-
+    dictionary = {}
+    s = s.lower()
+    for w in s:
+        # get down to word level
+        for c in w:  # get down to character level
+              # if letter is already in dictionary, leave key as is, otherwise,
+              # create a new one and set value to zero. In both cases, increase
+              # value by 1
+            dictionary[c] = dictionary.get(c, 0) + 1
+    lst = sorted(dictionary, key=dictionary.__getitem__,
+                 reverse=True)  # sort by value, reversed order
+    for c in lst:
+        if c.isalpha():  # check if it is a character
+            print(c)
 
 ###############################################################################
+
+
 def main():   # DO NOT CHANGE BELOW
     print("Example 1:")
     most_frequent("abcdefghijklmnopqrstuvwxyz")

@@ -45,25 +45,46 @@ import sys
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
 
-###
+
+def print_words(filename):
+    list_of_words = dictionary_of_file(filename)
+    print(sorted(list_of_words, key = list_of_words.__getitem__, reverse = True))
 
 
-# This basic command line argument parsing code is provided and
-# calls the print_words() and print_top() functions which you must define.
-def main():
-    if len(sys.argv) != 3:
-        print('usage: ./wordcount.py {--count | --topcount} file')
-        sys.exit(1)
+def dictionary_of_file(filename):
+    with open(filename, "r") as doc:
+        dictionary = {}
+        list_of_words = (doc.readlines()).lower().split()
+        for word in list_of_words:
+            dictionary[word] = dictionary.get(word, 0) + 1
+    return dictionary
 
-    option = sys.argv[1]
-    filename = sys.argv[2]
-    if option == '--count':
-        print_words(filename)
-    elif option == '--topcount':
-        print_top(filename)
-    else:
-        print('unknown option: ' + option)
-        sys.exit(1)
 
-if __name__ == '__main__':
-    main()
+def print_top(filename):
+    list_of_words = dictionary_of_file(filename)
+    list_of_words_sorted = sorted(
+        list_of_words, key=list_of_words.__getitem__, reverse=True)
+    top_only = list_of_words_sorted[:21]
+    print(top_only)
+
+    ###
+
+    # This basic command line argument parsing code is provided and
+    # calls the print_words() and print_top() functions which you must define.
+    def main():
+        if len(sys.argv) != 3:
+            print('usage: ./wordcount.py {--count | --topcount} file')
+            sys.exit(1)
+
+        option = sys.argv[1]
+        filename = sys.argv[2]
+        if option == '--count':
+            print_words(filename)
+        elif option == '--topcount':
+            print_top(filename)
+        else:
+            print('unknown option: ' + option)
+            sys.exit(1)
+
+    if __name__ == '__main__':
+        main()

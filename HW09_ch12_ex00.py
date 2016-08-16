@@ -15,6 +15,10 @@
 # Body
 
 
+def sumall(*args):
+    return sum(args)
+
+
 ##############################################################################
 def main():   # DO NOT CHANGE BELOW
     print(sumall(1, 2, 3, 4, 5))
